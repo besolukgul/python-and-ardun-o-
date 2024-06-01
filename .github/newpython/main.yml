@@ -1,0 +1,39 @@
+import cv2
+import controller as cnt
+from cvzone.HandTrackingModule import HandDetector
+
+detector=HandDetector(detectionCon=0.8,maxHands=1) 
+#algılanacak elin ne kadar net algılanması gerektiğini belirtir.
+
+video=cv2.VideoCapture(0) #kamerayı kullanarak bir video akışı yakalamak için OpenCV'nin VideoCapture fonksiyonunu kullanır. 0 brnc kamerayı temsil eder
+
+while True:
+    ret,frame=video.read() #Kameradan bir kare okur.
+    frame=cv2.flip(frame,1) #Kameradan bir kare okur.
+    hands,img=detector.findHands(frame) #Çerçevede elleri tespit etmeye çalışır ve tespit edilen elleri ve işlenmiş görüntüyü döndürür.
+    if hands: #Eğer eller tespit edilmişse
+        lmList=hands[0] #İlk elin uç noktalarının bir listesini alır
+        fingerUp=detector.fingersUp(lmList) #Parmakların yukarı doğru olup olmadığını belirler.
+
+        print(fingerUp) # Parmak durumunu yazdırı
+        cnt.led(fingerUp) #Parmakların durumuna bağlı olarak LED kontrolü gerçekleştirir.
+        if fingerUp==[0,0,0,0,0]:
+            cv2.putText(frame,'Finger count:0',(20,460),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        elif fingerUp==[0,1,0,0,0]:
+            cv2.putText(frame,'Finger count:1',(20,460),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)    
+        elif fingerUp==[0,1,1,0,0]:
+            cv2.putText(frame,'Finger count:2',(20,460),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        elif fingerUp==[0,1,1,1,0]:
+            cv2.putText(frame,'Finger count:3',(20,460),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        elif fingerUp==[0,1,1,1,1]:
+            cv2.putText(frame,'Finger count:4',(20,460),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1,cv2.LINE_AA)
+        elif fingerUp==[1,1,1,1,1]:
+            cv2.putText(frame,'Finger count:5',(20,460),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),1,cv2.LINE_AA) 
+
+    cv2.imshow("frame",frame)
+    k=cv2.waitKey(1)
+    if k==ord("f"):
+        break
+
+video.release()
+cv2.destroyAllWindows()
