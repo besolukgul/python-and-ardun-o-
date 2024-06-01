@@ -1,6 +1,6 @@
 [![MasterHead](https://realpython.com/cdn-cgi/image/width=960,format=auto/https://files.realpython.com/media/Arduino-With-Python-How-to-Get-Started_Watermarked.67d3c045231b.jpg)
 <h1 align="center">Hi 👋, I'm fatmagül beşoluk</h1>
-<h3 align="center">A Turkish girl who loves Python</h3>
+<h3 align="center">python opencv aracılığı ile parmak kaldırma sayısına göre led yanan bir proje</h3>
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
