@@ -1,0 +1,8 @@
+python  version 3.8.10
+pip installcvzone
+pip install pyfirmata
+
+---libraries---
+
+ardunio ide 
+kütüphane ekle yazan yere  gir ve  firmata ekle.
